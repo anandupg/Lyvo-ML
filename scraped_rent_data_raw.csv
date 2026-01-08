@@ -1,0 +1,192 @@
+city,location_raw,rent,room_size,room_type_inferred,bhk,furnished,attached_bath,bath_count,parking,power_backup,pool,security,source
+kochi,Kadavanthra,37000,1800.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Thrikkakara,26000,1280.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Kaloor,14500,600.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Panampilly Nagar,17000,760.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Kakkanad,45000,1282.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Thrikkakara,50000,2320.0,Master,4,Semi,1,6,1,0,0,0,commonfloor
+kochi,Thrikkakara,50000,2160.0,Master,4,Semi,1,5,1,0,0,0,commonfloor
+kochi,Kaloor,40000,1760.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Kaloor,30000,1040.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Kaloor,30000,1040.0,Master,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Udayamperoor,10000,480.0,Master,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Kakkanad,13000,800.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Aluva,25000,1282.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Semi Furnished 3 BHK Villa for Rent in Edapally,20000,888.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Kalamassery,18500,640.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Semi Furnished 1 BHK Apartment for Rent in Mundamveli,8500,480.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Vyttila,14000,320.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Thrippunithura,13000,800.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Semi Furnished 2 BHK Villa for Rent in Chullickal,11000,800.0,Master,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Palarivattom,20000,800.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Ravipuram,9000,320.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Vyttila,13000,320.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Thevara,21000,600.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Vyttila,13000,320.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Ravipuram,9000,320.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Vyttila,13000,320.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Ponekkara,20000,1360.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Mattancherry,30000,960.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Ernakulam,23000,1000.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Kakkanad,25000,804.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Ravipuram,9000,320.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Semi Furnished 3 BHK Apartment for Rent in Edapally,25000,1400.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Kaloor,22000,1160.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Semi Furnished 3 BHK Apartment for Rent in Edapally,18000,1240.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Kakkanad,25000,804.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Ernakulam,23000,1000.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Mattancherry,30000,960.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Poonithura,40000,1840.0,Master,4,Semi,1,6,1,0,0,0,commonfloor
+kochi,Semi Furnished 2 BHK Villa for Rent in Chullickal,11000,800.0,Master,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Kaloor,12000,840.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Semi Furnished 2 BHK Apartment for Rent in Kaloor - Kadavanthara Road,20000,1200.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Semi Furnished 2 BHK Apartment for Rent in Edapally,13000,720.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Ernakulam,23000,1178.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Semi Furnished 3 BHK Villa for Rent in Chakkaraparambu,25000,1320.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Semi Furnished 3 BHK Apartment for Rent in Kumaranasan Nagar,32000,1280.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Semi Furnished 1 BHK Builder Floor for Rent in Amrita Nagar,9000,320.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Chittoor Road,17500,320.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Palarivattom,15000,960.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Semi Furnished 3 BHK Apartment for Rent in Edapally,24000,1344.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Aluva,25000,1440.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Palarivattom,8000,600.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Kumarapuram,32000,1280.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Shenoys,25000,1360.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Semi Furnished 1 BHK Builder Floor for Rent in Amrita Nagar,9000,320.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Aluva,25000,1440.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Kacheripady,18000,876.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Ponekkara,23000,960.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Kaloor,7000,400.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Palarivattom,13000,840.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Mamangalam,20000,840.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Udayamperoor,10000,480.0,Master,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Kaloor,14500,600.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Semi Furnished 2 BHK Villa for Rent in Chullickal,11000,800.0,Master,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Vyttila,13000,320.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Kacheripady,18000,876.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Mamangalam,20000,840.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Palarivattom,20000,1040.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Kumarapuram,32000,1528.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Palarivattom,13000,840.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Palarivattom,12000,744.0,Master,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Kumarapuram,32000,1280.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Palarivattom,10500,720.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Kadavanthra,37000,1800.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Kaloor,22000,1160.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Palarivattom,12000,296.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Panampilly Nagar,17000,760.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Edappally,13000,360.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Maradu,100000,1200.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kochi,Vennala,30000,1920.0,Master,4,Semi,1,5,1,0,0,0,commonfloor
+kochi,Palluruthy,9000,480.0,Master,2,Semi,1,2,1,0,0,0,commonfloor
+kochi,Palarivattom,12000,316.0,Single,2,Unfurnished,1,2,0,0,0,0,commonfloor
+kochi,Panampilly Nagar,17000,896.0,Single,2,Unfurnished,1,2,0,0,0,0,commonfloor
+kochi,Elamakkara,14000,576.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+kochi,Kumarapuram,32000,1280.0,Single,0,Semi,1,3,1,0,0,0,commonfloor
+kochi,Vyttila,13000,320.0,Single,0,Unfurnished,1,1,1,0,0,0,commonfloor
+kochi,Ravipuram,9000,320.0,Single,0,Semi,1,1,1,0,0,0,commonfloor
+kochi,Vyttila,13000,320.0,Single,0,Semi,1,1,1,0,0,0,commonfloor
+kochi,Ernakulam,23000,1000.0,Single,2,Unfurnished,1,2,0,0,0,0,commonfloor
+kochi,Vennala,30000,1920.0,Master,4,Semi,1,5,1,0,0,0,commonfloor
+kochi,Elamakkara,18000,880.0,Master,0,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Kazhakkoottam,28000,960.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Semi Furnished 3 BHK Apartment for Rent in Pongumoodu,25000,1600.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,MC Road,20000,1360.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,2 BHK Villa for Rent in Chalai,15000,846.0,Master,2,Unfurnished,1,2,0,0,0,0,commonfloor
+trivandrum,Trivandrum,18000,1016.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Karikkakam,20000,1000.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Vazhuthacaud,16000,960.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Vazhuthacaud,16000,960.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Semi Furnished 3 BHK Apartment for Rent in Kunnukuzhy,18000,1080.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Vazhuthacaud,16000,960.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Pazhavangadi,12000,560.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+trivandrum,Semi Furnished 3 BHK Apartment for Rent in Pongumoodu,17000,1000.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Sasthamangalam,18000,640.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Nanthancode,27000,880.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Valiyavila,12000,880.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Kazhakkoottam,18000,1064.0,Master,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Semi Furnished 1 BHK Apartment for Rent in Sreevarahom,11000,720.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+trivandrum,Chenkottukonam,30500,1440.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Semi Furnished 2 BHK Apartment for Rent in Kazhakuttam,18000,1040.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Kazhakkoottam,18000,580.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Semi Furnished 2 BHK Villa for Rent in Chalai,15000,720.0,Master,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Trivandrum,18000,1016.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Kazhakkoottam,25000,1600.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Vizhinjam,35000,1680.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Kazhakkoottam,14300,744.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,2 BHK Villa for Rent in Chalai,15000,846.0,Master,2,Unfurnished,1,2,0,0,0,0,commonfloor
+trivandrum,2 BHK Villa for Rent in Chalai,15000,846.0,Master,2,Unfurnished,1,2,0,0,0,0,commonfloor
+trivandrum,Kazhakkoottam,25000,1600.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Jagathy,18000,960.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Pattom,27000,856.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Sasthamangalam,15000,480.0,Single,0,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Kazhakkoottam,18000,1064.0,Master,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Thirumala,8000,560.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Marappalam,15000,660.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,2 BHK Villa for Rent in Chalai,15000,846.0,Master,2,Unfurnished,1,2,0,0,0,0,commonfloor
+trivandrum,2 BHK Villa for Rent in Chalai,15000,846.0,Master,2,Unfurnished,1,2,0,0,0,0,commonfloor
+trivandrum,Kazhakkoottam,25000,1600.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Jagathy,18000,960.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Pattom,27000,856.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Pallipuram,25000,1120.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Pettah,35000,984.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Marappalam,15000,660.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Aakkulam,22000,960.0,Master,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Pallipuram,22000,1108.0,Master,3,Unfurnished,1,3,1,0,0,0,commonfloor
+trivandrum,DD Sports City Pavilion,25000,1284.0,Single,0,Fully,1,2,0,0,0,0,commonfloor
+trivandrum,Cordon Imperial Gardens,25000,876.0,Single,0,Fully,1,2,1,1,1,1,commonfloor
+trivandrum,Vazhuthacaud,16000,960.0,Single,0,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Marappalam,15000,660.0,Single,0,Unfurnished,1,2,1,0,0,0,commonfloor
+trivandrum,Kazhakkoottam,25000,1975.0,Master,3,Unfurnished,1,3,0,0,0,0,commonfloor
+trivandrum,Pangodu,14000,1800.0,Master,0,Semi,1,3,0,0,0,0,commonfloor
+trivandrum,Kuravankonam,28000,1400.0,Master,3,Unfurnished,1,3,1,0,0,0,commonfloor
+trivandrum,Powdikonam,15000,800.0,Master,3,Unfurnished,1,3,1,0,0,0,commonfloor
+trivandrum,Nalanchira,8500,1350.0,Master,0,Semi,1,2,0,0,0,0,commonfloor
+trivandrum,Elite Samruddhi,25000,838.0,Single,0,Fully,1,2,0,1,1,1,commonfloor
+trivandrum,Karikkakam,14000,720.0,Single,0,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Trivandrum,18000,1016.0,Single,2,Semi,1,2,0,0,0,0,commonfloor
+trivandrum,Sasthamangalam,40000,1120.0,Master,3,Unfurnished,1,3,1,0,0,0,commonfloor
+trivandrum,Vizhinjam,35000,1990.0,Master,3,Unfurnished,1,3,0,0,0,0,commonfloor
+trivandrum,Ulloor,15000,700.0,Master,0,Unfurnished,1,2,0,0,0,0,commonfloor
+trivandrum,Pettah,35000,1150.0,Single,2,Unfurnished,1,2,1,0,0,0,commonfloor
+trivandrum,Jagathy,18000,960.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Semi Furnished 1 BHK Apartment for Rent in Sreevarahom,11000,720.0,Single,1,Semi,1,1,1,0,0,0,commonfloor
+trivandrum,Semi Furnished 3 BHK Apartment for Rent in Pongumoodu,17000,1000.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Chenkottukonam,30500,1440.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Vizhinjam,35000,1990.0,Master,3,Unfurnished,1,3,0,0,0,0,commonfloor
+trivandrum,Ulloor,15000,700.0,Master,0,Unfurnished,1,2,0,0,0,0,commonfloor
+trivandrum,Pettah,35000,1150.0,Single,2,Unfurnished,1,2,1,0,0,0,commonfloor
+trivandrum,Chanthavila,15000,1400.0,Master,3,Unfurnished,1,3,0,0,0,0,commonfloor
+trivandrum,Vazhuthacaud,16000,960.0,Single,0,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,2 BHK Villa for Rent in Chalai,15000,846.0,Master,2,Unfurnished,1,2,0,0,0,0,commonfloor
+trivandrum,Vellayambalam,18000,800.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Pallipuram,20000,624.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Pettah,35000,984.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Kamaleswaram,15000,960.0,Master,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Sasthamangalam,40000,1120.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Pattom,14000,520.0,Master,1,Semi,1,1,1,0,0,0,commonfloor
+trivandrum,Pallipuram,20000,624.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+trivandrum,Pattom,14000,520.0,Master,1,Semi,1,1,1,0,0,0,commonfloor
+trivandrum,Aakkulam,22000,1120.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+trivandrum,Sasthamangalam,15000,480.0,Single,0,Semi,1,2,1,0,0,0,commonfloor
+thrissur,Semi Furnished 3 BHK Apartment for Rent in Chembukkav,18000,880.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+thrissur,Semi Furnished 3 BHK Apartment for Rent in Chembukkav,18000,880.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+thrissur,Ollur,21000,896.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+thrissur,Mannuthy,13000,640.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+thrissur,Mannuthy,13000,640.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+thrissur,Mannuthy,13000,640.0,Single,0,Unfurnished,1,2,1,0,0,0,commonfloor
+thrissur,Not Furnished 3 BHK Apartment for Rent in Chembukkav,18000,880.0,Master,3,Unfurnished,1,3,0,0,0,0,commonfloor
+thrissur,Mannuthy,13000,640.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+thrissur,Semi Furnished 3 BHK Apartment for Rent in Chembukkav,18000,880.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+thrissur,Ollur,21000,896.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+thrissur,Semi Furnished 3 BHK Apartment for Rent in Chembukkav,18000,880.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+thrissur,Semi Furnished 3 BHK Apartment for Rent in Chembukkav,18000,880.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+thrissur,Ollur,21000,896.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+thrissur,Mannuthy,13000,640.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+thrissur,Semi Furnished 3 BHK Apartment for Rent in Chembukkav,18000,880.0,Master,3,Semi,1,3,1,0,0,0,commonfloor
+kollam,Pooyappally,11000,800.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kollam,Polayathodu,35000,1480.0,Master,4,Unfurnished,1,5,1,0,0,0,commonfloor
+kollam,Pooyappally,11000,800.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+kollam,Pooyappally,11000,800.0,Single,2,Semi,1,2,1,0,0,0,commonfloor
+palakkad,Semi Furnished 2 BHK Villa for Rent in Chandranagar Colony,15500,800.0,Master,2,Semi,1,2,1,0,0,0,commonfloor
+palakkad,Valiyapadam,7500,850.0,Master,0,Unfurnished,1,2,1,0,0,0,commonfloor
