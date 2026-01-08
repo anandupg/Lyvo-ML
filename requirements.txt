@@ -5,8 +5,5 @@ numpy
 joblib
 flask-cors
 gunicorn
-<<<<<<< HEAD
 requests
 beautifulsoup4
-=======
->>>>>>> d792f481d7c289764075a21142d5882cb649b70f

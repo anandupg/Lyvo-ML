@@ -83,7 +83,6 @@ def predict_rent():
         
         # Create Feature Vector
         # Order must match training: location, room_type, size, ac, bath, parking, kitchen, power, wifi, tv, fridge, wardrobe, study, balcony, furnished
-<<<<<<< HEAD
         # Create Feature DataFrame to match training data structure and avoid warnings
         features_df = pd.DataFrame([{
             'location_enc': loc_enc,
@@ -105,16 +104,6 @@ def predict_rent():
         
         # Predict
         predicted_rent = model.predict(features_df)[0]
-=======
-        features = np.array([[
-            loc_enc, type_enc, room_size, ac, attached_bath, 
-            parking, kitchen, power_backup, wifi, tv, fridge,
-            wardrobe, study_table, balcony, furn_enc
-        ]])
-        
-        # Predict
-        predicted_rent = model.predict(features)[0]
->>>>>>> d792f481d7c289764075a21142d5882cb649b70f
         
         # Range (+- 5-10%)
         min_rent = int(predicted_rent * 0.92)

@@ -24,14 +24,10 @@ def generate_synthetic_data(n_samples=2000):
         'Aluva': 6000,
         'Kalamassery': 7000,
         'Fort Kochi': 12000, # Tourist premium
-<<<<<<< HEAD
         'Other': 7500,
         # Add some Kerala cities base
         'Trivandrum': 8500,
         'Kochi': 8500
-=======
-        'Other': 7500
->>>>>>> d792f481d7c289764075a21142d5882cb649b70f
     }
     
     locations = list(location_base_price.keys())
@@ -115,7 +111,7 @@ def generate_synthetic_data(n_samples=2000):
             'rent': int(rent)
         })
         
-<<<<<<< HEAD
+
 
     return pd.DataFrame(data)
 
@@ -196,17 +192,85 @@ def train():
     le_loc = LabelEncoder()
     # Normalize location case
     df['location'] = df['location'].astype(str).str.title().str.strip()
-=======
     return pd.DataFrame(data)
+
+def load_real_data(csv_path):
+    try:
+        df = pd.read_csv(csv_path)
+        print(f"Loaded {len(df)} real samples.")
+    except FileNotFoundError:
+        print("Real data CSV not found. Using only synthetic.")
+        return pd.DataFrame()
+        
+    # Map raw columns to model columns
+    # Scraped: city, location_raw, rent, room_size, room_type_inferred, bhk, furnished, attached_bath, bath_count, parking, power_backup, pool, security, source
+    # Model target cols: location, room_type, room_size, ac, attached_bath, parking, kitchen, power_backup, wifi, tv, fridge, wardrobe, study_table, balcony, furnished, rent
+    
+    processed_data = []
+    
+    for _, row in df.iterrows():
+        # Clean Location
+        loc = row['location_raw']
+        if len(str(loc)) > 20 or 'Furnished' in str(loc):
+            # Fallback to city or try to extract last word? 
+            # Usually city is reliable from scraped data city col
+            loc = row['city'].capitalize() 
+        
+        # Room Type
+        rtype = row['room_type_inferred']
+        if rtype not in ['Single', 'Master', 'Shared', 'Studio']:
+            rtype = 'Single' # fallback
+            
+        # Furnished
+        furn = row['furnished']
+        if furn not in ['Unfurnished', 'Semi', 'Fully']:
+            furn = 'Unfurnished'
+            
+        processed_data.append({
+            'location': loc,
+            'room_type': rtype,
+            'room_size': float(row['room_size']) if row['room_size'] > 0 else 100.0,
+            'ac': 0, # Missing in scraped
+            'attached_bath': int(row['attached_bath']),
+            'parking': int(row['parking']),
+            'kitchen': 1, # Assume kitchen present in apartments
+            'power_backup': int(row['power_backup']),
+            'wifi': 0,
+            'tv': 0,
+            'fridge': 0,
+            'wardrobe': 0,
+            'study_table': 0,
+            'balcony': 0, # could infer from description but keep simple
+            'furnished': furn,
+            'rent': int(row['rent'])
+        })
+        
+    return pd.DataFrame(processed_data)
 
 # 2. Train Model
 def train():
     print("Generating synthetic data...")
-    df = generate_synthetic_data(5000)
+    df_synthetic = generate_synthetic_data(2000) # Reduce synthetic if we have real
+    
+    print("Loading real data...")
+    df_real = load_real_data('scraped_rent_data_raw.csv')
+    
+    # Combine
+    if not df_real.empty:
+        # Boost real data weight? Or just append. 
+        # Let's append.
+        df = pd.concat([df_synthetic, df_real], ignore_index=True)
+        print(f"Total training samples: {len(df)} ({len(df_synthetic)} synthetic + {len(df_real)} real)")
+    else:
+        df = df_synthetic
+        print(f"Total training samples: {len(df)}")
     
     # Preprocessing
+    # Handle Location LabelEncoder with unseen labels in future?
+    # We should handle unknown during inference, but for now fit on all.
     le_loc = LabelEncoder()
->>>>>>> d792f481d7c289764075a21142d5882cb649b70f
+    # Normalize location case
+    df['location'] = df['location'].astype(str).str.title().str.strip()
     df['location_enc'] = le_loc.fit_transform(df['location'])
     
     le_type = LabelEncoder()
