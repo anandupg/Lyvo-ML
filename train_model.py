@@ -24,10 +24,14 @@ def generate_synthetic_data(n_samples=2000):
         'Aluva': 6000,
         'Kalamassery': 7000,
         'Fort Kochi': 12000, # Tourist premium
+<<<<<<< HEAD
         'Other': 7500,
         # Add some Kerala cities base
         'Trivandrum': 8500,
         'Kochi': 8500
+=======
+        'Other': 7500
+>>>>>>> d792f481d7c289764075a21142d5882cb649b70f
     }
     
     locations = list(location_base_price.keys())
@@ -111,6 +115,7 @@ def generate_synthetic_data(n_samples=2000):
             'rent': int(rent)
         })
         
+<<<<<<< HEAD
 
     return pd.DataFrame(data)
 
@@ -191,6 +196,17 @@ def train():
     le_loc = LabelEncoder()
     # Normalize location case
     df['location'] = df['location'].astype(str).str.title().str.strip()
+=======
+    return pd.DataFrame(data)
+
+# 2. Train Model
+def train():
+    print("Generating synthetic data...")
+    df = generate_synthetic_data(5000)
+    
+    # Preprocessing
+    le_loc = LabelEncoder()
+>>>>>>> d792f481d7c289764075a21142d5882cb649b70f
     df['location_enc'] = le_loc.fit_transform(df['location'])
     
     le_type = LabelEncoder()
