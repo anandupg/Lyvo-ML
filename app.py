@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
 import numpy as np
-import numpy as np
+import pandas as pd
 import os
 
 app = Flask(__name__)
@@ -98,9 +98,14 @@ def predict_rent():
         furn_enc = safe_transform(le_furn, furnished)
         bed_enc = safe_transform(le_bed, bed_type, default_val='Single Bed')
         
-        # Create Feature Vector (Numpy array is much lighter than Pandas DataFrame)
-        # Order must match training: location, room_type, bed_type, room_size, ac, bath, parking, kitchen, power, wifi, tv, fridge, wardrobe, study, balcony, furnished
-        features = np.array([[
+        # Create Feature Vector as DataFrame with column names matching training data
+        feature_names = [
+            'location_enc', 'room_type_enc', 'bed_type_enc', 'room_size',
+            'ac', 'attached_bath', 'parking', 'kitchen', 'power_backup',
+            'wifi', 'tv', 'fridge', 'wardrobe', 'study_table', 'balcony',
+            'furnished_enc'
+        ]
+        features = pd.DataFrame([[
             loc_enc,
             type_enc,
             bed_enc,
@@ -117,7 +122,7 @@ def predict_rent():
             study_table,
             balcony,
             furn_enc
-        ]])
+        ]], columns=feature_names)
         
         # Predict
         predicted_rent = model.predict(features)[0]

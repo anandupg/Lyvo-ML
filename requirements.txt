@@ -4,4 +4,4 @@ numpy
 joblib
 flask-cors
 gunicorn
-# pandas (Removed to save RAM)
+pandas
