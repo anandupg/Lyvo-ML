@@ -8,31 +8,31 @@ import os
 app = Flask(__name__)
 CORS(app) # Enable CORS for all routes
 
-# Load Models (Lazy loading or load on startup)
+# Global variables - Load at startup
 MODEL_PATH = 'rent_model.pkl'
 LE_LOC_PATH = 'le_location.pkl'
 LE_TYPE_PATH = 'le_room_type.pkl'
 LE_FURN_PATH = 'le_furnished.pkl'
 LE_BED_PATH = 'le_bed_type.pkl'
 
-# Global variables
-model = None
-le_loc = None
-le_type = None
-le_furn = None
-le_bed = None
-
 def load_models():
-    global model, le_loc, le_type, le_furn, le_bed
     if os.path.exists(MODEL_PATH):
-        model = joblib.load(MODEL_PATH)
-        le_loc = joblib.load(LE_LOC_PATH)
-        le_type = joblib.load(LE_TYPE_PATH)
-        le_furn = joblib.load(LE_FURN_PATH)
-        le_bed = joblib.load(LE_BED_PATH)
-        print("✅ Models loaded successfully")
+        try:
+            m = joblib.load(MODEL_PATH)
+            loc = joblib.load(LE_LOC_PATH)
+            typ = joblib.load(LE_TYPE_PATH)
+            furn = joblib.load(LE_FURN_PATH)
+            bed = joblib.load(LE_BED_PATH)
+            print("✅ Models loaded successfully")
+            return m, loc, typ, furn, bed
+        except Exception as e:
+            print(f"❌ Error loading models: {e}")
+            return None, None, None, None, None
     else:
         print("❌ Model files not found. Please run train_model.py first.")
+        return None, None, None, None, None
+
+model, le_loc, le_type, le_furn, le_bed = load_models()
 
 @app.route('/health', methods=['GET'])
 def health():
@@ -41,9 +41,7 @@ def health():
 @app.route('/predict_rent', methods=['POST'])
 def predict_rent():
     if not model:
-        load_models()
-        if not model:
-            return jsonify({"error": "Model not trained"}), 500
+        return jsonify({"success": False, "error": "Model not loaded on server. Please check server logs."}), 500
 
     try:
         data = request.json
@@ -145,6 +143,5 @@ def predict_rent():
         return jsonify({"success": False, "error": str(e)}), 400
 
 if __name__ == '__main__':
-    load_models()
     port = int(os.environ.get('PORT', 5001))
     app.run(host='0.0.0.0', port=port, debug=True)
