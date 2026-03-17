@@ -253,11 +253,12 @@ def train():
     model = RandomForestRegressor(n_estimators=150, random_state=42, n_jobs=-1)
     model.fit(X, y)
     
-    joblib.dump(model, 'rent_model.pkl')
-    joblib.dump(le_loc, 'le_location.pkl')
-    joblib.dump(le_type, 'le_room_type.pkl')
-    joblib.dump(le_furn, 'le_furnished.pkl')
-    joblib.dump(le_bed, 'le_bed_type.pkl')
+    # Use compression to save space (especially important for Render's 512MB RAM limit)
+    joblib.dump(model, 'rent_model.pkl', compress=3)
+    joblib.dump(le_loc, 'le_location.pkl', compress=3)
+    joblib.dump(le_type, 'le_room_type.pkl', compress=3)
+    joblib.dump(le_furn, 'le_furnished.pkl', compress=3)
+    joblib.dump(le_bed, 'le_bed_type.pkl', compress=3)
     
     print("\n✅ Model trained and saved successfully!")
     
