@@ -6,4 +6,8 @@ __pycache__/
 .venv/
 env/
 ENV/
-*.pkl
+# Keep models tracked
+!*.pkl
+
+# Research and heavy data
+research/

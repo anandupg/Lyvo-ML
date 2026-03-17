@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
 import numpy as np
-import pandas as pd
+import numpy as np
 import os
 
 app = Flask(__name__)
@@ -98,30 +98,29 @@ def predict_rent():
         furn_enc = safe_transform(le_furn, furnished)
         bed_enc = safe_transform(le_bed, bed_type, default_val='Single Bed')
         
-        # Create Feature Vector
-        # Order must match training: location, room_type, size, ac, bath, parking, kitchen, power, wifi, tv, fridge, wardrobe, study, balcony, furnished
-        # Create Feature DataFrame to match training data structure and avoid warnings
-        features_df = pd.DataFrame([{
-            'location_enc': loc_enc,
-            'room_type_enc': type_enc,
-            'bed_type_enc': bed_enc,
-            'room_size': room_size,
-            'ac': ac,
-            'attached_bath': attached_bath,
-            'parking': parking,
-            'kitchen': kitchen,
-            'power_backup': power_backup,
-            'wifi': wifi,
-            'tv': tv,
-            'fridge': fridge,
-            'wardrobe': wardrobe,
-            'study_table': study_table,
-            'balcony': balcony,
-            'furnished_enc': furn_enc
-        }])
+        # Create Feature Vector (Numpy array is much lighter than Pandas DataFrame)
+        # Order must match training: location, room_type, bed_type, room_size, ac, bath, parking, kitchen, power, wifi, tv, fridge, wardrobe, study, balcony, furnished
+        features = np.array([[
+            loc_enc,
+            type_enc,
+            bed_enc,
+            room_size,
+            ac,
+            attached_bath,
+            parking,
+            kitchen,
+            power_backup,
+            wifi,
+            tv,
+            fridge,
+            wardrobe,
+            study_table,
+            balcony,
+            furn_enc
+        ]])
         
         # Predict
-        predicted_rent = model.predict(features_df)[0]
+        predicted_rent = model.predict(features)[0]
         
         # Range (+- 5-10%)
         min_rent = int(predicted_rent * 0.92)
