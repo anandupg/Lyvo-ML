@@ -13,20 +13,23 @@ MODEL_PATH = 'rent_model.pkl'
 LE_LOC_PATH = 'le_location.pkl'
 LE_TYPE_PATH = 'le_room_type.pkl'
 LE_FURN_PATH = 'le_furnished.pkl'
+LE_BED_PATH = 'le_bed_type.pkl'
 
 # Global variables
 model = None
 le_loc = None
 le_type = None
 le_furn = None
+le_bed = None
 
 def load_models():
-    global model, le_loc, le_type, le_furn
+    global model, le_loc, le_type, le_furn, le_bed
     if os.path.exists(MODEL_PATH):
         model = joblib.load(MODEL_PATH)
         le_loc = joblib.load(LE_LOC_PATH)
         le_type = joblib.load(LE_TYPE_PATH)
         le_furn = joblib.load(LE_FURN_PATH)
+        le_bed = joblib.load(LE_BED_PATH)
         print("✅ Models loaded successfully")
     else:
         print("❌ Model files not found. Please run train_model.py first.")
@@ -48,7 +51,22 @@ def predict_rent():
         # Extract features
         location = data.get('location', 'Other')
         room_type = data.get('room_type', 'Single')
+        bed_type = data.get('bed_type', 'Single Bed')
         room_size = float(data.get('room_size', 100))
+        
+        # Enforce realistic minimum sizes so the RF model doesn't break
+        min_sizes = {
+            'Single': 80,
+            'Double': 120,
+            'Master': 150,
+            'Studio': 200,
+            'Triple': 250,
+            'Quad': 350
+        }
+        min_required = min_sizes.get(room_type, 100)
+        if room_size < min_required:
+            room_size = min_required
+
         ac = int(data.get('ac', 0))
         attached_bath = int(data.get('attached_bath', 0))
         parking = int(data.get('parking', 0))
@@ -80,6 +98,7 @@ def predict_rent():
         loc_enc = safe_transform(le_loc, location)
         type_enc = safe_transform(le_type, room_type)
         furn_enc = safe_transform(le_furn, furnished)
+        bed_enc = safe_transform(le_bed, bed_type, default_val='Single Bed')
         
         # Create Feature Vector
         # Order must match training: location, room_type, size, ac, bath, parking, kitchen, power, wifi, tv, fridge, wardrobe, study, balcony, furnished
@@ -87,6 +106,7 @@ def predict_rent():
         features_df = pd.DataFrame([{
             'location_enc': loc_enc,
             'room_type_enc': type_enc,
+            'bed_type_enc': bed_enc,
             'room_size': room_size,
             'ac': ac,
             'attached_bath': attached_bath,

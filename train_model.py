@@ -1,307 +1,276 @@
 import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 import joblib
 import random
+import os
 
-# 1. Generate Synthetic Data (focused on Indian Cities context)
-# We simulate detailed rental data to bootstrap the model
-def generate_synthetic_data(n_samples=2000):
+# 1. Generate Synthetic Data with CORRECT pricing logic
+def generate_synthetic_data(n_samples=15000):
     np.random.seed(42)
-    
     data = []
     
-    # Base price mapping for locations (approximate monthly rent for 1 room)
+    # Base price = price for a SINGLE room in that area
     location_base_price = {
-        'Kakkanad': 8000,
-        'Edappally': 9000,
-        'Palarivattom': 9500,
-        'Kaloor': 9200,
-        'MG Road': 10000,
-        'Vyttila': 9500,
-        'Aluva': 6000,
-        'Kalamassery': 7000,
-        'Fort Kochi': 12000, # Tourist premium
-        'Other': 7500,
-        # Add some Kerala cities base
-        'Trivandrum': 8500,
-        'Kochi': 8500
+        'Kakkanad': 8000, 'Edappally': 9000, 'Palarivattom': 9500, 'Kaloor': 9200,
+        'MG Road': 10000, 'Vyttila': 9500, 'Aluva': 6000, 'Kalamassery': 7000,
+        'Fort Kochi': 11000, 'Other': 6500,
+        'Trivandrum': 8500, 'Kochi': 8500, 'Thrissur': 7500, 'Kozhikode': 7800,
+        'Kannur': 6500, 'Alappuzha': 6000, 'Kollam': 6500, 'Palakkad': 5500,
+        'Pathanamthitta': 5000, 'Ranni': 4500, 'Karukachal': 4800, 'Changanassery': 6000,
+        'Kottayam': 7000, 'Pala': 5500,
+        'Mumbai': 25000, 'Delhi': 15000, 'Bangalore': 16000, 'Hyderabad': 13000,
+        'Chennai': 12000, 'Kolkata': 10000, 'Pune': 14000, 'Ahmedabad': 11000,
+        'Surat': 9000, 'Jaipur': 8500
     }
     
     locations = list(location_base_price.keys())
     
+    # Room types with their size multipliers (bigger room = more expensive)
+    room_type_multipliers = {
+        'Single': 1.0,    # small single room
+        'Double': 1.6,    # bigger room with 2 beds / double bed
+        'Triple': 2.1,    # 3 beds, large room
+        'Quad': 2.8,      # 4 beds, very large room
+        'Master': 1.8,    # premium master bedroom
+        'Studio': 2.2     # self-contained studio apartment
+    }
+    
+    # Bed type add-ons (No Bed is the baseline)
+    bed_type_addon = {
+        'No Bed': 0,
+        'Single Bed': 800,
+        'Double Bed': 2000,
+        'Queen Bed': 3500,
+        'King Bed': 5500,
+        'Bunk Bed': 1200
+    }
+    
+    room_types = list(room_type_multipliers.keys())
+    bed_types = list(bed_type_addon.keys())
+    
     for _ in range(n_samples):
         loc = random.choice(locations)
         base = location_base_price[loc]
+        room_type = random.choice(room_types)
+        bed_type = random.choice(bed_types)
         
-        # Features
-        room_type = random.choice(['Single', 'Shared', 'Master', 'Studio'])
-        room_size = random.randint(80, 400) # sqft
+        # Room size correlates with type
+        if room_type == 'Single': room_size = random.randint(80, 150)
+        elif room_type == 'Double': room_size = random.randint(120, 250)
+        elif room_type == 'Master': room_size = random.randint(150, 300)
+        elif room_type == 'Studio': room_size = random.randint(200, 400)
+        elif room_type == 'Triple': room_size = random.randint(250, 450)
+        elif room_type == 'Quad': room_size = random.randint(350, 600)
+        else: room_size = random.randint(100, 300)
         
-        # Amenities (0 or 1)
+        # Amenities (binary)
         ac = random.choice([0, 1])
         attached_bath = random.choice([0, 1])
         parking = random.choice([0, 1])
         kitchen = random.choice([0, 1])
         power_backup = random.choice([0, 1])
-        
-        # New Detailed Amenities
         wifi = random.choice([0, 1])
         tv = random.choice([0, 1])
         fridge = random.choice([0, 1])
         wardrobe = random.choice([0, 1])
         study_table = random.choice([0, 1])
         balcony = random.choice([0, 1])
-        
         furnished = random.choice(['Unfurnished', 'Semi', 'Fully'])
         
-        # Calculate Logic-based Rent (to make the model learn realistic patterns)
-        rent = base
+        # --- RENT CALCULATION ---
+        rent = base * room_type_multipliers[room_type]
         
-        # Room Type Multiplier
-        if room_type == 'Single': rent *= 1.0
-        elif room_type == 'Master': rent *= 1.4
-        elif room_type == 'Studio': rent *= 1.6
-        elif room_type == 'Shared': rent *= 0.6 # Rent per person usually
+        # Bed type add-on
+        rent += bed_type_addon[bed_type]
         
-        # Size multiplier (small effect)
-        rent += (room_size - 100) * 15 
+        # Size premium (larger rooms cost more per sqft)
+        rent += (room_size - 100) * 12
         
-        # Amenities Modifiers
+        # Amenity add-ons (ALL amenities ADD to price, never subtract)
         if ac: rent += 1500
         if attached_bath: rent += 1000
         if parking: rent += 500
         if kitchen: rent += 800
         if power_backup: rent += 400
-        
-        # New Amenities Values
-        if wifi: rent += 500
-        if tv: rent += 800
-        if fridge: rent += 1000
+        if wifi: rent += 600
+        if tv: rent += 500
+        if fridge: rent += 700
         if wardrobe: rent += 500
-        if study_table: rent += 300
-        if balcony: rent += 500
+        if study_table: rent += 400   # POSITIVE contribution
+        if balcony: rent += 600
         
         # Furnishing
-        if furnished == 'Semi': rent += 1000
-        elif furnished == 'Fully': rent += 2500
+        if furnished == 'Semi': rent += 1500
+        elif furnished == 'Fully': rent += 3500
         
-        # Random Noise (+- 10%)
-        noise = random.uniform(0.9, 1.1)
-        rent *= noise
+        # Noise (+/- 8%)
+        rent *= random.uniform(0.92, 1.08)
+        
+        # Cap rent to realistic range
+        rent = max(2000, min(rent, 120000))
         
         data.append({
-            'location': loc,
-            'room_type': room_type,
-            'room_size': room_size,
-            'ac': ac,
-            'attached_bath': attached_bath,
-            'parking': parking,
-            'kitchen': kitchen,
-            'power_backup': power_backup,
-            'wifi': wifi,
-            'tv': tv,
-            'fridge': fridge,
-            'wardrobe': wardrobe,
-            'study_table': study_table,
-            'balcony': balcony,
-            'furnished': furnished,
+            'location': loc, 'room_type': room_type, 'bed_type': bed_type, 'room_size': room_size,
+            'ac': ac, 'attached_bath': attached_bath, 'parking': parking,
+            'kitchen': kitchen, 'power_backup': power_backup, 'wifi': wifi,
+            'tv': tv, 'fridge': fridge, 'wardrobe': wardrobe,
+            'study_table': study_table, 'balcony': balcony, 'furnished': furnished,
             'rent': int(rent)
         })
-        
-
-
     return pd.DataFrame(data)
 
 def load_real_data(csv_path):
+    if not os.path.exists(csv_path): return pd.DataFrame()
     try:
         df = pd.read_csv(csv_path)
-        print(f"Loaded {len(df)} real samples.")
-    except FileNotFoundError:
-        print("Real data CSV not found. Using only synthetic.")
+    except Exception:
         return pd.DataFrame()
-        
-    # Map raw columns to model columns
-    # Scraped: city, location_raw, rent, room_size, room_type_inferred, bhk, furnished, attached_bath, bath_count, parking, power_backup, pool, security, source
-    # Model target cols: location, room_type, room_size, ac, attached_bath, parking, kitchen, power_backup, wifi, tv, fridge, wardrobe, study_table, balcony, furnished, rent
-    
-    processed_data = []
-    
+    processed = []
+    valid_types = ['Single', 'Double', 'Triple', 'Quad', 'Master', 'Studio']
     for _, row in df.iterrows():
-        # Clean Location
-        loc = row['location_raw']
-        if len(str(loc)) > 20 or 'Furnished' in str(loc):
-            # Fallback to city or try to extract last word? 
-            # Usually city is reliable from scraped data city col
-            loc = row['city'].capitalize() 
-        
-        # Room Type
-        rtype = row['room_type_inferred']
-        if rtype not in ['Single', 'Master', 'Shared', 'Studio']:
-            rtype = 'Single' # fallback
+        try:
+            rtype = row['room_type_inferred']
+            if rtype not in valid_types:
+                rtype = 'Double' if rtype == 'Shared' else 'Single'
             
-        # Furnished
-        furn = row['furnished']
-        if furn not in ['Unfurnished', 'Semi', 'Fully']:
-            furn = 'Unfurnished'
-            
-        processed_data.append({
-            'location': loc,
-            'room_type': rtype,
-            'room_size': float(row['room_size']) if row['room_size'] > 0 else 100.0,
-            'ac': 0, # Missing in scraped
-            'attached_bath': int(row['attached_bath']),
-            'parking': int(row['parking']),
-            'kitchen': 1, # Assume kitchen present in apartments
-            'power_backup': int(row['power_backup']),
-            'wifi': 0,
-            'tv': 0,
-            'fridge': 0,
-            'wardrobe': 0,
-            'study_table': 0,
-            'balcony': 0, # could infer from description but keep simple
-            'furnished': furn,
-            'rent': int(row['rent'])
-        })
-        
-    return pd.DataFrame(processed_data)
+            furn = row['furnished']
+            if furn not in ['Unfurnished', 'Semi', 'Fully']:
+                furn = 'Unfurnished'
 
-# 2. Train Model
-def train():
-    print("Generating synthetic data...")
-    df_synthetic = generate_synthetic_data(2000) # Reduce synthetic if we have real
-    
-    print("Loading real data...")
-    df_real = load_real_data('scraped_rent_data_raw.csv')
-    
-    # Combine
-    if not df_real.empty:
-        # Boost real data weight? Or just append. 
-        # Let's append.
-        df = pd.concat([df_synthetic, df_real], ignore_index=True)
-        print(f"Total training samples: {len(df)} ({len(df_synthetic)} synthetic + {len(df_real)} real)")
-    else:
-        df = df_synthetic
-        print(f"Total training samples: {len(df)}")
-    
-    # Preprocessing
-    # Handle Location LabelEncoder with unseen labels in future?
-    # We should handle unknown during inference, but for now fit on all.
-    le_loc = LabelEncoder()
-    # Normalize location case
-    df['location'] = df['location'].astype(str).str.title().str.strip()
-    return pd.DataFrame(data)
+            rent = int(row['rent'])
+            if rent < 1000 or rent > 120000: continue  # skip bad data
 
-def load_real_data(csv_path):
+            processed.append({
+                'location': row['location_raw'], 'room_type': rtype, 'bed_type': 'No Bed',
+                'room_size': float(row['room_size']) if row['room_size'] > 0 else 100.0,
+                'ac': 0, 'attached_bath': int(row['attached_bath']), 'parking': int(row['parking']),
+                'kitchen': 1, 'power_backup': int(row['power_backup']),
+                'wifi': 0, 'tv': 0, 'fridge': 0, 'wardrobe': 0, 'study_table': 0, 'balcony': 0,
+                'furnished': furn, 'rent': rent
+            })
+        except Exception:
+            continue
+    return pd.DataFrame(processed)
+
+def load_external_data(csv_path):
+    if not os.path.exists(csv_path): return pd.DataFrame()
     try:
         df = pd.read_csv(csv_path)
-        print(f"Loaded {len(df)} real samples.")
-    except FileNotFoundError:
-        print("Real data CSV not found. Using only synthetic.")
+    except Exception:
         return pd.DataFrame()
-        
-    # Map raw columns to model columns
-    # Scraped: city, location_raw, rent, room_size, room_type_inferred, bhk, furnished, attached_bath, bath_count, parking, power_backup, pool, security, source
-    # Model target cols: location, room_type, room_size, ac, attached_bath, parking, kitchen, power_backup, wifi, tv, fridge, wardrobe, study_table, balcony, furnished, rent
-    
-    processed_data = []
-    
+    processed = []
     for _, row in df.iterrows():
-        # Clean Location
-        loc = row['location_raw']
-        if len(str(loc)) > 20 or 'Furnished' in str(loc):
-            # Fallback to city or try to extract last word? 
-            # Usually city is reliable from scraped data city col
-            loc = row['city'].capitalize() 
-        
-        # Room Type
-        rtype = row['room_type_inferred']
-        if rtype not in ['Single', 'Master', 'Shared', 'Studio']:
-            rtype = 'Single' # fallback
+        try:
+            bhk = int(row['BHK'])
+            # Stop mapping whole apartments to shared rooms! 
+            # A 3BHK is not a 'Triple' room, it's a 3 bedroom house.
+            if bhk > 2: 
+                continue # Skip large apartments so they don't break room pricing logic
             
-        # Furnished
-        furn = row['furnished']
-        if furn not in ['Unfurnished', 'Semi', 'Fully']:
-            furn = 'Unfurnished'
+            if bhk == 2: rtype = 'Master'
+            elif bhk == 0: rtype = 'Studio'
+            else: rtype = 'Single'
             
-        processed_data.append({
-            'location': loc,
-            'room_type': rtype,
-            'room_size': float(row['room_size']) if row['room_size'] > 0 else 100.0,
-            'ac': 0, # Missing in scraped
-            'attached_bath': int(row['attached_bath']),
-            'parking': int(row['parking']),
-            'kitchen': 1, # Assume kitchen present in apartments
-            'power_backup': int(row['power_backup']),
-            'wifi': 0,
-            'tv': 0,
-            'fridge': 0,
-            'wardrobe': 0,
-            'study_table': 0,
-            'balcony': 0, # could infer from description but keep simple
-            'furnished': furn,
-            'rent': int(row['rent'])
-        })
-        
-    return pd.DataFrame(processed_data)
+            furn = str(row['Furnishing Status'])
+            if 'Semi' in furn: fstatus = 'Semi'
+            elif 'Unfurnished' in furn: fstatus = 'Unfurnished'
+            else: fstatus = 'Fully'
 
-# 2. Train Model
+            rent = int(row['Rent'])
+            if rent < 1000 or rent > 120000: continue  # skip outliers
+
+            size = float(row['Size'])
+            # Don't let massive apartments pollute the 'No Bed' category and distort shared room pricing
+            if size > 600: continue 
+
+            processed.append({
+                'location': str(row['City']).title(), 'room_type': rtype, 'bed_type': 'No Bed',
+                'room_size': size,
+                'ac': 0,
+                'attached_bath': 0,
+                'parking': 0, 'kitchen': 1, 'power_backup': 0,
+                'wifi': 0,
+                'tv': 0,
+                'fridge': 0,
+                'wardrobe': 0,
+                'study_table': 0,
+                'balcony': 0,
+                'furnished': fstatus, 'rent': rent
+            })
+        except Exception:
+            continue
+    return pd.DataFrame(processed)
+
 def train():
     print("Generating synthetic data...")
-    df_synthetic = generate_synthetic_data(2000) # Reduce synthetic if we have real
-    
-    print("Loading real data...")
+    df_syn = generate_synthetic_data(15000)
+    print("Loading scraped & external data...")
     df_real = load_real_data('scraped_rent_data_raw.csv')
+    df_ext = load_external_data('external_india_rent_data.csv')
     
-    # Combine
-    if not df_real.empty:
-        # Boost real data weight? Or just append. 
-        # Let's append.
-        df = pd.concat([df_synthetic, df_real], ignore_index=True)
-        print(f"Total training samples: {len(df)} ({len(df_synthetic)} synthetic + {len(df_real)} real)")
-    else:
-        df = df_synthetic
-        print(f"Total training samples: {len(df)}")
+    dfs = [df_syn]
+    if not df_real.empty: dfs.append(df_real)
+    if not df_ext.empty: dfs.append(df_ext)
     
-    # Preprocessing
-    # Handle Location LabelEncoder with unseen labels in future?
-    # We should handle unknown during inference, but for now fit on all.
-    le_loc = LabelEncoder()
-    # Normalize location case
+    df = pd.concat(dfs, ignore_index=True)
     df['location'] = df['location'].astype(str).str.title().str.strip()
-    df['location_enc'] = le_loc.fit_transform(df['location'])
     
+    # Final data cleaning
+    df['rent'] = pd.to_numeric(df['rent'], errors='coerce')
+    df = df.dropna()
+    df = df[(df['rent'] >= 2000) & (df['rent'] <= 120000)].copy()
+    
+    print(f"Total clean samples: {len(df)}")
+    df.to_csv('full_training_dataset.csv', index=False)
+    
+    # Distribution check
+    print("\nRoom type average rents:")
+    print(df.groupby('room_type')['rent'].mean().sort_values().to_string())
+    print("\nBed type average rents:")
+    print(df.groupby('bed_type')['rent'].mean().sort_values().to_string())
+    
+    # Encode categoricals
+    le_loc = LabelEncoder()
     le_type = LabelEncoder()
-    df['room_type_enc'] = le_type.fit_transform(df['room_type'])
-    
     le_furn = LabelEncoder()
-    df['furnished_enc'] = le_furn.fit_transform(df['furnished'])
+    le_bed = LabelEncoder()
     
-    # Features & Target
-    X = df[['location_enc', 'room_type_enc', 'room_size', 'ac', 'attached_bath', 
-            'parking', 'kitchen', 'power_backup', 'wifi', 'tv', 'fridge', 
-            'wardrobe', 'study_table', 'balcony', 'furnished_enc']]
+    df['location_enc'] = le_loc.fit_transform(df['location'])
+    df['room_type_enc'] = le_type.fit_transform(df['room_type'])
+    df['furnished_enc'] = le_furn.fit_transform(df['furnished'])
+    df['bed_type_enc'] = le_bed.fit_transform(df['bed_type'])
+    
+    feature_cols = ['location_enc', 'room_type_enc', 'bed_type_enc', 'room_size',
+                    'ac', 'attached_bath', 'parking', 'kitchen', 'power_backup',
+                    'wifi', 'tv', 'fridge', 'wardrobe', 'study_table', 'balcony', 'furnished_enc']
+    
+    X = df[feature_cols]
     y = df['rent']
     
-    # Train
-    print(f"Training RandomForest Regressor with {X.shape[1]} features...")
-    model = RandomForestRegressor(n_estimators=100, random_state=42)
+    print(f"\nTraining RandomForest with {len(X)} samples...")
+    model = RandomForestRegressor(n_estimators=150, random_state=42, n_jobs=-1)
     model.fit(X, y)
     
-    # Save Artifacts
-    print("Saving model and encoders...")
     joblib.dump(model, 'rent_model.pkl')
     joblib.dump(le_loc, 'le_location.pkl')
     joblib.dump(le_type, 'le_room_type.pkl')
     joblib.dump(le_furn, 'le_furnished.pkl')
+    joblib.dump(le_bed, 'le_bed_type.pkl')
     
-    print("✅ Model trained and saved successfully!")
+    print("\n✅ Model trained and saved successfully!")
     
-    # Test a sample prediction
-    # Kakkanad (assumed index known or we use transform), Single, 150sqft, AC, Bath, etc.
-    # ideally we wrap prediction in a function but for script we just exit
-    
+    # Quick sanity check
+    print("\n--- Quick Sanity Check ---")
+    le_kochi = le_loc.transform(['Kochi'])[0]
+    for rtype in ['Single', 'Double', 'Triple', 'Quad', 'Master', 'Studio']:
+        rtype_enc = le_type.transform([rtype])[0]
+        bed_enc = le_bed.transform(['Single Bed'])[0]
+        furn_enc = le_furn.transform(['Unfurnished'])[0]
+        sample = pd.DataFrame([[le_kochi, rtype_enc, bed_enc, 150, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, furn_enc]], columns=feature_cols)
+        pred = model.predict(sample)[0]
+        print(f"  Kochi {rtype} (150sqft, Unfurnished): ₹{int(pred):,}")
+
 if __name__ == '__main__':
     train()

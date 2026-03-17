@@ -10,10 +10,11 @@ import re
 # Commonfloor uses hyphenated city names usually, but "kochi", "trivandrum" etc might differ.
 # I'll use a mapping or list.
 CITIES = [
+    # Kerala Cities
     'kochi', 'trivandrum', 'kozhikode', 'thiruvananthapuram' , 'pathanamthitta' , 'thrissur', 
-    'kannur', 'alappuzha', 'kollam', 'palakkad'
-    # Note: verify if these exist on commonfloor. 
-    # if 404, we skip.
+    'kannur', 'alappuzha', 'kollam', 'palakkad', 'ranni', 'karukachal', 'changanassery', 'kottayam', 'pala',
+    # Major Indian Cities
+    'mumbai', 'delhi', 'bangalore', 'hyderabad', 'chennai', 'kolkata', 'pune', 'ahmedabad', 'surat', 'jaipur'
 ]
 
 # Headers to mimic a browser
